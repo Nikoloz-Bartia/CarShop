@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #eaf4ff; /* Light background color */
+            margin: 0;
+        }
+
+        nav {
+            background-color: #3498db; /* Light blue */
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow */
+            display: flex;
+            justify-content: space-between; /* To spread the nav links and the username */
+            align-items: center;
+            padding: 0 20px; /* Padding for spacing */
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            display: block;
+            color: #ffffff; /* White text */
+            text-align: center;
+            padding: 20px 30px; /* Increased padding for height and width */
+            text-decoration: none;
+            font-size: 18px; /* Increased font size */
+            font-weight: bold; /* Bold text */
+            letter-spacing: 1px; /* Spacing between letters */
+            transition: background-color 0.3s, transform 0.2s; /* Transition for background color and scale */
+        }
+
+        nav a:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+            color: #ffffff; /* White text */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        nav a:active {
+            background-color: #1f6392; /* Even darker active color */
+        }
+
+       
+        .username {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'contact' %}">Contact</a>
+        <a href="{% url 'cars' %}">Cars</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'add_car' %}">Add Car</a>
+    </div>
+    
+    <h3 class="username">{{ user.username }}</h3>
+</nav>
+
+</body>
+</html>

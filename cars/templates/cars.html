@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car List</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0; /* Remove default padding */
+            background-color: #f0f2f5;
+        }
+
+        /* Navbar Styling */
+        nav {
+            background-color: #3498db; /* Light blue */
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow */
+            position: fixed; /* Fix the navbar at the top */
+            width: 100%; /* Make the navbar full width */
+            top: 0; /* Position it at the top */
+            z-index: 1000; /* Keep it above other content */
+            display: flex; /* Flexbox for easy layout management */
+            justify-content: space-between; /* Space items between */
+            align-items: center;
+            padding: 0 20px; /* Padding inside navbar */
+        }
+
+        nav .nav-links {
+            display: flex;
+        }
+
+        nav a {
+            display: block;
+            color: #ffffff; /* White text */
+            text-align: center;
+            padding: 20px 30px; /* Increased padding for height and width */
+            text-decoration: none;
+            font-size: 18px; /* Increased font size */
+            font-weight: bold; /* Bold text */
+            letter-spacing: 1px; /* Spacing between letters */
+            transition: background-color 0.3s, transform 0.2s; /* Transition */
+        }
+
+        nav a:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+            color: #ffffff; /* White text */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        /* Username Styling */
+        nav .username {
+            color: #ffffff; /* White text */
+            font-size: 18px;
+            font-weight: bold;
+            margin-right: 20px; /* Space between right side of navbar and username */
+        }
+
+        /* Main Content Adjustment */
+        .main-content {
+            padding-top: 100px; /* Add space to prevent overlap with navbar */
+        }
+
+        .car-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .car-item {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .car-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .car-item h2 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .car-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .car-item img:hover {
+            transform: scale(1.05);
+        }
+
+        .car-item h3 {
+            font-size: 1.2rem;
+            color: #555;
+            margin: 10px 0;
+        }
+
+        .car-item h3.price {
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        .details-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .details-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .car-list {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .car-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'cars' %}">Cars</a>
+            <a href="{% url 'about' %}">About</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Logout</a>
+                <a href="{% url 'add_car' %}">Add Car</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Sign Up</a>
+            {% endif %}
+        </div>
+        {% if user.is_authenticated %}
+            <span class="username">{{ user.username }}</span>
+        {% endif %}
+    </nav>
+
+    <div class="main-content">
+        {% if user.is_authenticated %}
+            <div class="car-list">
+                {% for cars in data %}
+                <div class="car-item">
+                    <h2>{{ cars.model }}</h2>
+                    <img src="{{ cars.image }}" alt="{{ cars.model }}">
+                    <h3 class="price">Price: ${{ cars.price }}.000</h3>
+                    <h3>Year: {{ cars.year }}</h3>
+                    <h3>Author: {{ cars.added_by.username }}</h3>
+                    <a href="{% url 'pk_cars' cars.pk %}" class="details-btn">More details</a>
+                </div>
+                {% endfor %}
+                
+                {% for item in item %}
+                <div class="car-item">
+                    <h2>{{ item.model }}</h2>
+                    <img src="{{ item.image }}" alt="{{ item.model }}">
+                    <h3 class="price">Price: ${{ item.price }}</h3>
+                    <h3>Year: {{ item.year }}</h3>
+                    <h3>Author: {{ item.added_by.username }}</h3>
+                    <a href="{% url 'pk_cars' item.pk %}" class="details-btn">More details</a>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            {% include 'no_auth.html' %}
+        {% endif %}
+    </div>
+
+</body>
+</html>

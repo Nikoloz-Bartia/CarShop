@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        {% include 'auth_navbar.html' %}
+    {% else %}
+        {% include 'navbar.html' %}
+    {% endif %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        p {
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+    </style>
+
+<div class="container">
+    <h1>CarShop-ის ბიოგრაფია</h1>
+    <p><strong>CarShop</strong> არის თანამედროვე კომპანი, რომელიც იფუძნებს მეორად და ახალ მანქანებს. დაარსდა 2017 წელს და უკვე დიდი პოპულარობით სარგებლობს საქართველოს ბაზარზე. კომპანია მიზნად ისახავს მომხმარებელს მაღალი ხარისხის ავტომობილების შეთავაზებას, რაც ყოველდღიურად უფრო მეტად იქცევა ხიდი ახალი მანქანებისა და მომხმარებლის შორის.</p>
+
+    <p>CarShop-ის შემქმნელია და ყველა ფუნქციის ხელმძღვანელი <strong>ნიკოლოზ ბართია</strong>. როგორც პიარ მენეჯერი, ნიკოლოზ უზრუნველყოფს კომპანიის წარმატებულ კომუნიკაციას და ცნობადობას. ადმინისტრაციული საკითხების მართვაში ასევე მისი მონაწილეობა სჭირდება, რაც გარანტირებულია უმაღლესი ხარისხის მომსახურების უზრუნველყოფაში. ტექნიკური დახმარების გაწვდასაც ნიკოლოზი ახორციელებს, რაც მომხმარებელთა საჭიროებების სწრაფ და ეფექტურ გადაჭრას ნიშნავს.</p>
+
+    <p>CarShop მუდმივად ვითარდება და ვითარდება ბაზარზე, რაც საშუალებას აძლევს მის მომხმარებლებს დაიჯერონ, რომ მანქანის შეძენა არის არა მარტო საჭიროება, არამედ სიხარული.</p>
+</div>
+
+</body>
+</html>

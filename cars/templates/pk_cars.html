@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ car.model }} Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Nav styles */
+        nav {
+            background-color: #3498db; /* Light blue */
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow */
+            display: flex;
+            justify-content: space-between; /* Align items to opposite ends */
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        nav a {
+            display: block;
+            color: #ffffff; /* White text */
+            text-align: center;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        nav a:hover {
+            background-color: #2980b9; /* Darker blue */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        .username {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #e67e22; /* Orange */
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #3498db; /* Blue */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #2980b9; /* Darker Blue */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav>
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'contact' %}">Contact</a>
+        <a href="{% url 'cars' %}">Cars</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Sign Up</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+    <h3 class="username">{{ user.username }}</h3>
+</nav>
+
+<!-- Car Details -->
+ 
+<div class="container">
+    {% if user.is_authenticated %}
+    <h3>Author: {{ car.added_by.username }}</h3>
+    <h1>{{ car.model }}</h1>
+    <img src="{{ car.image }}" alt="{{ car.model }}">
+    <p>წელი: {{ car.year }}</p>
+    <p class="price">ფასი: ${{ car.price }}.000</p>
+    <p>{{ car.description }}</p>
+    <a href="{% url 'cars' %}" class="back-btn">Back to list</a>
+    {% else %}
+    {% include 'no_auth.html' %}
+    {%endif%}
+</div>
+
+</body>
+</html>

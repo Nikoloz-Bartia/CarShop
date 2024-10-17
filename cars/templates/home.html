@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome To CarShop</title>
+    <style>
+        /* Base Styling */
+        /* body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0; 
+            background-color: #f7f9fc; /* Softer light background */
+            /* color: #333;  Darker text for better readability  */
+        
+
+        /* Navbar Styling */
+        nav {
+            background-color: #3498db; /* Light blue */
+            padding: 10px 20px; /* Padding for the navbar */
+            position: fixed; /* Fix the navbar at the top */
+            width: 100%; /* Make the navbar full width */
+            top: 0; /* Position it at the top */
+            z-index: 1000; /* Keep it above other content */
+        }
+
+        nav a {
+            color: #ffffff; /* White text */
+            text-decoration: none; /* Remove underline */
+            margin-right: 15px; /* Spacing between links */
+            font-weight: bold; /* Bold text */
+        }
+
+        /* Container Styling */
+        .container {
+            display: flex;
+            flex-wrap: wrap; /* Allow cards to wrap onto the next line */
+            justify-content: center; /* Center the cards */
+            padding-top: 80px; /* Space to prevent overlap with navbar */
+            gap: 20px; /* Space between cards */
+        }
+
+        /* Card Styling */
+        .card {
+            background-color: #ffffff; /* White background for cards */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+            padding: 20px; /* Padding inside the card */
+            width: 300px; /* Fixed width for cards */
+            text-align: center; /* Center align text */
+            transition: transform 0.2s; /* Animation for hover effect */
+        }
+
+        /* Card Hover Effect */
+        .card:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+        }
+
+        /* Card Image Styling */
+        .card img {
+            width: 100%; /* Full width of the card */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 10px; /* Rounded corners */
+        }
+
+        /* Card Text Styling */
+        h2 {
+            font-size: 24px; /* Font size for model */
+            color: #2c3e50; /* Darker heading color */
+            margin: 15px 0; /* Margin above and below */
+        }
+
+        h3 {
+            font-size: 18px; /* Font size for additional info */
+            color: #555; /* Gray color for author and year */
+            margin: 10px 0; /* Margin above and below */
+        }
+
+        strong {
+            color: #007BFF; /* Blue color for emphasized text */
+        }
+
+        /* Button Styling */
+        .detail-button {
+            background-color: #3498db; /* Button color */
+            color: white; /* Button text color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px 15px; /* Padding inside button */
+            cursor: pointer; /* Change cursor to pointer */
+            text-decoration: none; /* Remove underline */
+            font-weight: bold; /* Bold text */
+            display: inline-block; /* Inline block for spacing */
+            margin-top: 10px; /* Space above the button */
+        }
+
+        .detail-button:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+        }
+
+        .vip-ad {
+            text-align: center;
+            margin-top: 5%;
+        }
+
+        /* Media Queries for Responsive Design */
+        @media (max-width: 768px) {
+            .card {
+                width: 100%; /* Make cards full width on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    {% include 'auth_navbar.html' %}
+    {% else %}
+    {% include 'navbar.html' %}
+    {% endif %}
+    <h1 class="vip-ad">VIP განცხადებები</h1>
+    <div class="container">
+            {% for cars in objects %}
+            <div class="card">
+                <h2>{{cars.model}}</h2>
+                <img src="{{cars.image}}" alt="Image of {{cars.model}}">
+                <h3>Author: <strong>{{cars.added_by.username}}</strong></h3>
+                <h3>Year: <strong>{{cars.year}}</strong></h3>
+                <a href="{% url 'pk_cars' cars.pk %}" class="detail-button">More Detail</a>
+            </div>
+            {% endfor %}
+    </div>
+</body>
+</html>
